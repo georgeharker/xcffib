@@ -1,6 +1,9 @@
 build
 dist
 dist-newstyle
+_*.c
+_*.so
+_*.o
 *.swp
 *.swo
 *.pyc

@@ -244,3 +244,17 @@ CDEF += """
 
 ffi = FFI()
 ffi.cdef(CDEF)
+ffi.set_source_pkgconfig(
+    '_xcffib',
+    ['xcb'],
+    """
+    #include "xcb/xcb.h"
+    #include "xcb/xproto.h"
+    #include "xcb/xevie.h"
+    #include "xcb/xcbext.h"
+    #include "xcb/render.h"
+    """
+)
+
+if __name__ == "__main__":
+    ffi.compile(verbose=True)
