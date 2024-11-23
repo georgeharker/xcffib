@@ -23,7 +23,7 @@ import platform
 import struct
 import weakref
 
-print('env',int(os.environ['XCFFIB_API_MODE']))
+
 # Attempt api mode if installed
 api_mode = True
 if ('XCFFIB_API_MODE' in os.environ and
@@ -35,13 +35,11 @@ if api_mode:
     try:
         from _xcffib import ffi, lib
         api_mode = True
-        print("api-mode")
     except ImportError:
         api_mode = False
 
 # Fall back to non api mode
 if not api_mode:
-    print("not api-mode")
     from .ffi import ffi  # noqa
 
     if platform.system() == "Darwin":
