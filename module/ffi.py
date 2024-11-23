@@ -13,7 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+
 from cffi import FFI
+
 
 CONSTANTS = [
     ("X_PROTOCOL", 11),
@@ -244,17 +247,20 @@ CDEF += """
 
 ffi = FFI()
 ffi.cdef(CDEF)
-ffi.set_source_pkgconfig(
-    '_xcffib',
-    ['xcb'],
-    """
-    #include "xcb/xcb.h"
-    #include "xcb/xproto.h"
-    #include "xcb/xevie.h"
-    #include "xcb/xcbext.h"
-    #include "xcb/render.h"
-    """
-)
 
-if __name__ == "__main__":
-    ffi.compile(verbose=True)
+if ('XCFFIB_API_MODE' in os.environ and
+        int(os.environ['XCFFIB_API_MODE']) == 1):
+    ffi.set_source_pkgconfig(
+        '_xcffib',
+        ['xcb'],
+        """
+        #include "xcb/xcb.h"
+        #include "xcb/xproto.h"
+        #include "xcb/xevie.h"
+        #include "xcb/xcbext.h"
+        #include "xcb/render.h"
+        """
+    )
+
+    if __name__ == "__main__":
+        ffi.compile(verbose=True)

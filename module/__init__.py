@@ -18,21 +18,41 @@ from __future__ import absolute_import, division
 import ctypes.util
 import functools
 import io
+import os
 import platform
 import struct
 import weakref
 
-from .ffi import ffi
+print('env',int(os.environ['XCFFIB_API_MODE']))
+# Attempt api mode if installed
+api_mode = True
+if ('XCFFIB_API_MODE' in os.environ and
+        int(os.environ['XCFFIB_API_MODE']) == 0):
+    # Allow explicit disable of api_mode
+    api_mode = False
 
-if platform.system() == "Darwin":
-    soname = "libxcb.dylib"
-elif platform.system() == "Windows":
-    soname = "libxcb.dll"
-else:
-    soname = ctypes.util.find_library("xcb")
-    if soname is None:
-        soname = "libxcb.so"
-lib = ffi.dlopen(soname)
+if api_mode:
+    try:
+        from _xcffib import ffi, lib
+        api_mode = True
+        print("api-mode")
+    except ImportError:
+        api_mode = False
+
+# Fall back to non api mode
+if not api_mode:
+    print("not api-mode")
+    from .ffi import ffi  # noqa
+
+    if platform.system() == "Darwin":
+        soname = "libxcb.dylib"
+    elif platform.system() == "Windows":
+        soname = "libxcb.dll"
+    else:
+        soname = ctypes.util.find_library("xcb")
+        if soname is None:
+            soname = "libxcb.so"
+    lib = ffi.dlopen(soname)  # noqa
 
 __xcb_proto_version__ = 'placeholder'
 __version__ = 'placeholder'

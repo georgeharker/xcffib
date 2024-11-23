@@ -46,6 +46,11 @@ class binding_install(install):
 version = "1.5.0"
 dependencies = ["cffi>=1.1.0; python_implementation != 'PyPy'"]
 
+api_mode = False
+if ('XCFFI_API_MODE' in os.environ and
+        int(os.environ['XCFFI_API_MODE']) == 1):
+    api_mode = True
+
 setup(
     name="xcffib",
     version=version,
@@ -72,5 +77,5 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Software Development :: Libraries'
     ],
-    cffi_modules=["xcffib/ffi.py:ffi"],
+    cffi_modules=["xcffib/ffi.py:ffi"] if api_mode else [],
 )
