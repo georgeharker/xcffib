@@ -77,5 +77,5 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Software Development :: Libraries'
     ],
-    cffi_modules=["xcffib/ffi.py:ffi"] if api_mode else [],
+    cffi_modules=["xcffib/ffi_build.py:ffi"] if api_mode else [],
 )

@@ -40,7 +40,7 @@ if api_mode:
 
 # Fall back to non api mode
 if not api_mode:
-    from .ffi import ffi  # noqa
+    from .ffi_build import ffi  # noqa
 
     if platform.system() == "Darwin":
         soname = "libxcb.dylib"
