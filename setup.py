@@ -43,8 +43,8 @@ class binding_install(install):
             sys.exit(1)
         install.finalize_options(self)
 
-version = "1.5.0"
-dependencies = ["cffi>=1.1.0; python_implementation != 'PyPy'"]
+version = "1.5.1"
+dependencies = ["cffi>=1.1.0"]
 
 api_mode = False
 if ('XCFFI_API_MODE' in os.environ and
@@ -64,7 +64,7 @@ setup(
     setup_requires=dependencies,
     packages=['xcffib'],
     package_data={'xcffib': ['py.typed']},
-    zip_safe=False,
+    #zip_safe=False,
     cmdclass={
         'build': binding_build,
         'install': binding_install
