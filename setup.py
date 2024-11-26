@@ -44,7 +44,7 @@ class binding_install(install):
         install.finalize_options(self)
 
 version = "1.5.1"
-dependencies = ["cffi>=1.1.0"]
+dependencies = ["cffi>=1.1.0; python_implementation != 'PyPy'"]
 
 api_mode = False
 if ('XCFFI_API_MODE' in os.environ and
