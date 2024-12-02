@@ -26,12 +26,11 @@ import weakref
 
 # Attempt api mode if installed
 api_mode = True
-if api_mode:
-    try:
-        from _xcffib import ffi, lib
-        api_mode = True
-    except ImportError:
-        api_mode = False
+try:
+    from _xcffib import ffi, lib
+    api_mode = True
+except ImportError:
+    api_mode = False
 
 # Fall back to non api mode
 if not api_mode:
