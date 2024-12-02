@@ -6,7 +6,7 @@ ifneq ($(XCBDIR),$(shell pkg-config --variable=xcbincludedir xcb-proto))
 else
 	XCBVER=$(shell pkg-config --modversion xcb-proto)
 endif
-NCPUS=$(shell ./portable_nproc.sh)
+NCPUS=$(shell nproc)
 PARALLEL=$(shell which parallel)
 CABAL=cabal --config-file=./cabal.config
 GEN=$(CABAL) new-run --minimize-conflict-set -j$(NCPUS) exe:xcffibgen --

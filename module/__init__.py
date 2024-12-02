@@ -26,11 +26,6 @@ import weakref
 
 # Attempt api mode if installed
 api_mode = True
-if ('XCFFIB_API_MODE' in os.environ and
-        int(os.environ['XCFFIB_API_MODE']) == 0):
-    # Allow explicit disable of api_mode
-    api_mode = False
-
 if api_mode:
     try:
         from _xcffib import ffi, lib
