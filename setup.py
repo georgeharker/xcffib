@@ -48,8 +48,8 @@ version = "1.5.0"
 dependencies = ["cffi>=1.1.0; python_implementation != 'PyPy'"]
 
 api_mode = False
-if ('XCFFI_API_MODE' in os.environ and
-        int(os.environ['XCFFI_API_MODE']) == 1):
+if ('XCFFIB_API_MODE' in os.environ and
+        int(os.environ['XCFFIB_API_MODE']) == 1):
     api_mode = True
 
 setup(
