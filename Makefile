@@ -16,7 +16,7 @@ xcffib: module/*.py xcffib.cabal $(shell find . -path ./test -prune -false -o -n
 	$(GEN) --input $(XCBDIR) --output ./xcffib
 	cp ./module/*py ./xcffib/
 	touch ./xcffib/py.typed
-	sed -i "s/__xcb_proto_version__ = .*/__xcb_proto_version__ = \"${XCBVER}\"/" xcffib/__init__.py
+	sed -i -e "s/__xcb_proto_version__ = .*/__xcb_proto_version__ = \"${XCBVER}\"/" xcffib/__init__.py
 
 .PHONY: xcffib-fmt
 xcffib-fmt: module/*.py
