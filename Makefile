@@ -8,7 +8,7 @@ else
 endif
 NCPUS=$(shell nproc)
 PARALLEL=$(shell which parallel)
-CABAL=flock xcffib.cabal cabal
+CABAL=cabal
 GEN=$(CABAL) new-run --minimize-conflict-set -j$(NCPUS) exe:xcffibgen --
 VENV=xcffib_venv
 PYTHON=$(VENV)/bin/python3
@@ -84,8 +84,8 @@ ifeq (${ver},)
 else ifneq ($(wildcard ./xcffib.egg-info*),)
 	@echo "xcffib.egg-info exists, not releasing."
 else
-	sed -i "s/version = .*/version = \"${ver}\"/" setup.py
-	sed -i "s/__version__ = .*/__version__ = \"${ver}\"/" xcffib/__init__.py
+	sed -i -e "s/version = .*/version = \"${ver}\"/" setup.py
+	sed -i -e "s/__version__ = .*/__version__ = \"${ver}\"/" xcffib/__init__.py
 	sed -r -i -e "s/(^version = \s*)[\"0-9\.]*/\1\"${ver}\"/" setup.py
 	sed -r -i -e "s/(^version:\s*)[0-9\.]*/\1${ver}/" xcffib.cabal
 	echo "Release v${ver}" > /tmp/xcffib.releasemsg
